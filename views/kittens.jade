@@ -1,0 +1,31 @@
+extends layout
+
+block content
+  if kittenList.length === 1
+    h1 #{kittenList.length} Kitten
+  else
+    h1 #{kittenList.length} Kittens
+  table(style="width:60%;")
+    tr
+      td(style="width: 45%")
+        h2 Name
+      td(style="width: 45%") 
+        h2 ID
+      td(style="width: 10%") 
+        | &nbsp;
+    each kitten in kittenList
+      tr
+        td
+          h4= kitten.name
+        td
+          h4= kitten.id
+        td
+          form(method="POST")
+            input(type="hidden", name="kittenId", value=kitten.id)
+            input(type="hidden", name="userAction", value="DELETE")
+            input(type="submit", value="Delete")
+
+  h2(style="margin-top:20px;") Create New Kitten
+    form(method="POST")
+      input(type="text", name="kittenName", placeholder="Kitten Name", required="required")
+      input(type="submit", value="Create")
