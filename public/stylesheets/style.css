@@ -6,3 +6,26 @@ body {
 a {
   color: #00B7FF;
 }
+
+.edit-form {
+	display:none;
+}
+
+td:hover .edit-form {
+	display:block;
+}
+
+tr.isComplete h4 {
+	text-decoration: line-through;
+	font-weight: normal;
+}
+
+.markIncomplete {
+	display:none;
+}
+tr.isComplete .markIncomplete {
+	display: inline-block;
+}
+tr.isComplete .markComplete {
+	display: none;
+}

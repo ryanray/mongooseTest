@@ -44,8 +44,21 @@ exports.postHandler = function(req, res){
 	}
 };
 
-exports.editKitten = function(){
+exports.editKitten = function(req, res){
+	var newName = req.body.kittenName;
+	var id = req.body.kittenId;
+	var status = req.body.kittenIsComplete;
 	//NEED TO IMPLEMENT
+	if(!newName || !id){
+		console.log('\n\n ERROR: newName & ID required');
+		res.redirect('/kittens');
+	}
+	else {
+		db.Kitten.findOneAndUpdate({_id: id}, {name: newName, isComplete: status}, function(){
+			res.redirect('/kittens');
+		});
+	}
+
 };
 
 exports.createKitten = function(req, res, kittenName){

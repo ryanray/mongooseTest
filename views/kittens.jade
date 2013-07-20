@@ -2,9 +2,9 @@ extends layout
 
 block content
   if kittenList.length === 1
-    h1 #{kittenList.length} Kitten
+    h1 #{kittenList.length} Task
   else
-    h1 #{kittenList.length} Kittens
+    h1 #{kittenList.length} Tasks
   table(style="width:60%;")
     tr
       td(style="width: 45%")
@@ -14,18 +14,29 @@ block content
       td(style="width: 10%") 
         | &nbsp;
     each kitten in kittenList
-      tr
+      tr( class= kitten.isComplete ? "isComplete" : undefined )
         td
           h4= kitten.name
+          form.edit-form(method="POST")
+            input(type="hidden", name="userAction", value="PUT")
+            input(type="hidden", name="kittenId", value=kitten.id)
+            input(type="hidden", name="kittenIsComplete", value="#{kitten.isComplete}")
+            input(type="text", name="kittenName", placeholder="Kitten Name", required="required", value=kitten.name)
+            input(type="submit", value="Save")
         td
           h4= kitten.id
         td
           form(method="POST")
             input(type="hidden", name="kittenId", value=kitten.id)
             input(type="hidden", name="userAction", value="DELETE")
+            button.markIncomplete Incomplete
+            button.markComplete Complete
             input(type="submit", value="Delete")
 
-  h2(style="margin-top:20px;") Create New Kitten
+  h2(style="margin-top:20px;") Create New Task
     form(method="POST")
       input(type="text", name="kittenName", placeholder="Kitten Name", required="required")
       input(type="submit", value="Create")
+
+  script(src="/scripts/jquery.js")
+  script(src="/scripts/site.js")
